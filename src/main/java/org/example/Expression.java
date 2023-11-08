@@ -63,7 +63,19 @@ public class Expression implements ExpressionAbstract {
         } else if (currentSymbol >= 'a' && currentSymbol <= 'z') {
             while (currentSymbol >= 'a' && currentSymbol <= 'z') nextChar();
             String paramName = expression.substring(startPos, pos);
-            x = Double.parseDouble(getParametrValue(paramName));
+            if (parse('(')) {
+                x = parseExpression();
+                if (!parse(')')) throw new RuntimeException("Missing ')' after argument to " + paramName);
+            } else {
+                x = Double.parseDouble(getParametrValue(paramName));
+            }
+            if (paramName.equals("sqrt")) x = Math.sqrt(x);
+            else if (paramName.equals("sin")) x = Math.sin(Math.toRadians(x));
+            else if (paramName.equals("cos")) x = Math.cos(Math.toRadians(x));
+            else if (paramName.equals("tan")) x = Math.tan(Math.toRadians(x));
+
+
+
         } else {
             throw new RuntimeException("Unexpected: " + (char) currentSymbol);
         }
