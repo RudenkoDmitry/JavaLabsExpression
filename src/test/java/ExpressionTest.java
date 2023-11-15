@@ -23,7 +23,7 @@ public class ExpressionTest {
 
     @Test
     public void solve() {
-        Assert.assertEquals(testExpression.solve(),16.0);
+        Assert.assertEquals(testExpression.solve() ,16,0.1);
     }
 
     private Expression testExpression;
